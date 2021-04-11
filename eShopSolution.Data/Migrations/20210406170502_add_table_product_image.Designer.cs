@@ -3,20 +3,22 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eShopSolution.Data;
 
 namespace eShopSolution.Data.Migrations
 {
     [DbContext(typeof(EShopDbContext))]
-    partial class EShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210406170502_add_table_product_image")]
+    partial class add_table_product_image
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.5")
+                .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -180,7 +182,7 @@ namespace eShopSolution.Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "b36a8b2c-a396-4d3f-b2e6-8a88440d4c4e",
+                            ConcurrencyStamp = "9ddc6a0f-7337-409f-b414-55d5a083762b",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -257,7 +259,7 @@ namespace eShopSolution.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ce48e2a9-ea00-41b6-b67d-009818d2efec",
+                            ConcurrencyStamp = "4ec33139-ce70-4107-9346-d3dbf9368e2f",
                             DOB = new DateTime(2020, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "tedu.international@gmail.com",
                             EmailConfirmed = true,
@@ -266,7 +268,7 @@ namespace eShopSolution.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "tedu.international@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHzINP3MH39u4ENPGV7hsc4UzIeC2KKAdKiPow88+SDKs1PswJa9RtJt6PsDNh37Pw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBZ/SRtWJxj7ee4MCyOMi2doiJ9+jhnjvbur/8QXW4BFiQ9Ido51o7NjPYVFIsqJ/A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -518,7 +520,9 @@ namespace eShopSolution.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2021, 4, 7, 0, 4, 58, 864, DateTimeKind.Local).AddTicks(1173));
 
                     b.Property<string>("ShipAddress")
                         .IsRequired()
@@ -614,7 +618,7 @@ namespace eShopSolution.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2021, 4, 11, 13, 46, 0, 256, DateTimeKind.Local).AddTicks(9743),
+                            DateCreated = new DateTime(2021, 4, 7, 0, 4, 58, 934, DateTimeKind.Local).AddTicks(4397),
                             OriginalPrice = 100000m,
                             Price = 200000m,
                             Stock = 0,
@@ -638,8 +642,8 @@ namespace eShopSolution.Data.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("FileSize")
-                        .HasColumnType("bigint");
+                    b.Property<int>("FileSize")
+                        .HasColumnType("int");
 
                     b.Property<string>("ImagePath")
                         .IsRequired()
@@ -652,7 +656,7 @@ namespace eShopSolution.Data.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SortOrder")
+                    b.Property<int>("SortDate")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -916,7 +920,7 @@ namespace eShopSolution.Data.Migrations
             modelBuilder.Entity("eShopSolution.Data.Entities.ProductImage", b =>
                 {
                     b.HasOne("eShopSolution.Data.Entities.Product", "Product")
-                        .WithMany("ProductImages")
+                        .WithMany("productImages")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1007,7 +1011,7 @@ namespace eShopSolution.Data.Migrations
 
                     b.Navigation("OrderDetails");
 
-                    b.Navigation("ProductImages");
+                    b.Navigation("productImages");
 
                     b.Navigation("ProductInCategories");
 
