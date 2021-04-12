@@ -21,7 +21,6 @@ namespace eShopSolution.Application.Common
         {
             return $"/{USER_CONTENT_FOLDER_NAME}/{fileName}";
         }
-
         public async Task SaveFileAsync(Stream mediaBinaryStream, string fileName)
         {
             var filePath = Path.Combine(_userContentFolder, fileName);

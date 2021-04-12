@@ -1,4 +1,5 @@
 using eShopSolution.Application.Catalog.Products;
+using eShopSolution.Application.Common;
 using eShopSolution.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,8 +34,8 @@ namespace WebApi
             options.UseSqlServer(Configuration.GetConnectionString("eShopSolutionDb")));
 
             //Dependency injection
-            services.AddTransient<IPublicProductService, PublicProductService>();
-
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IStorageService, FileStorageService>();
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore

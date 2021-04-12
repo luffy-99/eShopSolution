@@ -76,7 +76,7 @@ namespace eShopSolution.Application.Catalog.Products
                 }).ToListAsync();
             var pageResult = new PagedResult<ProductViewModel>()
             {
-                TotalRecord = totalRow,
+                TotalRecords = totalRow,
                 Items = data
             };
             return pageResult;
