@@ -1,7 +1,11 @@
+using eShopSolution.Application.Catalog.Products;
+using eShopSolution.Application.Common;
+using eShopSolution.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,7 +30,16 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<EShopDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("eShopSolutionDb")));
 
+            //Dependency injection
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IStorageService, FileStorageService>();
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
